@@ -1,5 +1,6 @@
 import React from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { PortfolioProvider } from './context/PortfolioContext';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 
@@ -12,7 +13,8 @@ import Contact from './pages/Contact';
 
 function App() {
   return (
-    <Router>
+    <PortfolioProvider>
+      <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -24,7 +26,8 @@ function App() {
           <Route path="contact" element={<Contact />} />
         </Route>
       </Routes>
-    </Router>
+      </Router>
+    </PortfolioProvider>
   );
 }
 
