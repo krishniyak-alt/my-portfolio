@@ -1,21 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { DownloadCloud, FileText, Link as LinkIcon } from 'lucide-react';
+import { DownloadCloud, FileText } from 'lucide-react';
 import { usePortfolio } from '../context/PortfolioContext';
 
 const Resume = () => {
-  const { data, isEditMode, updateHome } = usePortfolio();
+  const { data, isEditMode, updateResume } = usePortfolio();
   const resume = data.resume || {
     fileName: "Krishniya k Resume.pdf",
     fileSize: "PDF formatting • 1.2 MB",
     downloadUrl: "./resume.pdf",
     downloadName: "My_Resume.pdf"
-  };
-
-  const setResumeField = (fields) => {
-    // update in context
-    data.resume = { ...resume, ...fields };
-    localStorage.setItem('my_portfolio_data_v2', JSON.stringify(data));
   };
 
   return (
@@ -57,25 +51,25 @@ const Resume = () => {
               <input
                 type="text"
                 value={resume.fileName}
-                onChange={(e) => setResumeField({ fileName: e.target.value })}
+                onChange={(e) => updateResume({ fileName: e.target.value })}
                 className="w-full bg-slate-800 text-white font-bold px-3 py-2 rounded border border-amber-500/40 text-sm"
               />
             </div>
             <div>
-              <label className="text-xs text-amber-400 font-mono font-bold block mb-1 font-mono">FILE INFO / SUBTITLE:</label>
+              <label className="text-xs text-amber-400 font-mono font-bold block mb-1">FILE INFO / SUBTITLE:</label>
               <input
                 type="text"
                 value={resume.fileSize}
-                onChange={(e) => setResumeField({ fileSize: e.target.value })}
+                onChange={(e) => updateResume({ fileSize: e.target.value })}
                 className="w-full bg-slate-800 text-gray-300 px-3 py-2 rounded border border-amber-500/40 text-xs"
               />
             </div>
             <div>
-              <label className="text-xs text-amber-400 font-mono font-bold block mb-1">RESUME URL (Google Drive / Dropbox / Direct PDF link):</label>
+              <label className="text-xs text-amber-400 font-mono font-bold block mb-1">RESUME URL (Google Drive / Dropbox / Direct Link):</label>
               <input
                 type="text"
                 value={resume.downloadUrl}
-                onChange={(e) => setResumeField({ downloadUrl: e.target.value })}
+                onChange={(e) => updateResume({ downloadUrl: e.target.value })}
                 className="w-full bg-slate-800 text-accent font-mono px-3 py-2 rounded border border-amber-500/40 text-xs"
               />
             </div>

@@ -82,7 +82,7 @@ const initialPortfolioData = {
   resume: {
     fileName: "Krishniya k Resume.pdf",
     fileSize: "PDF formatting • 1.2 MB",
-    downloadUrl: "/resume.pdf",
+    downloadUrl: "./resume.pdf",
     downloadName: "My_Resume.pdf"
   }
 };
@@ -113,6 +113,10 @@ export const PortfolioProvider = ({ children }) => {
 
   const updateAbout = (fields) => {
     setData(prev => ({ ...prev, about: { ...prev.about, ...fields } }));
+  };
+
+  const updateResume = (fields) => {
+    setData(prev => ({ ...prev, resume: { ...prev.resume, ...fields } }));
   };
 
   const updateSkillLevel = (catIdx, skillIdx, level) => {
@@ -222,6 +226,7 @@ export const PortfolioProvider = ({ children }) => {
       setIsEditMode,
       updateHome,
       updateAbout,
+      updateResume,
       updateSkillLevel,
       updateSkillName,
       addSkill,
