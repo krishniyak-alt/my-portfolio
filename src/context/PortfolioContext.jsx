@@ -52,32 +52,7 @@ const initialPortfolioData = {
       ]
     }
   ],
-  projects: [
-    {
-      title: "Neon E-Commerce",
-      description: "A fully functional e-commerce platform featuring a modern cyberpunk aesthetic, real-time inventory management, and Stripe payment integration.",
-      tech: ["Next.js", "Tailwind CSS", "Stripe", "Prisma"],
-      github: "#",
-      live: "#",
-      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop"
-    },
-    {
-      title: "AI Image Generator",
-      description: "An interactive web app that utilizes OpenAI's DALL-E API to generate customized images based on complex user text prompts.",
-      tech: ["React.js", "Three.js", "Node.js", "OpenAI"],
-      github: "#",
-      live: "#",
-      image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=800&auto=format&fit=crop"
-    },
-    {
-      title: "Crypto Dashboard 3D",
-      description: "A comprehensive cryptocurrency tracking dashboard visualizing market trends using immersive 3D charting tools and WebGL.",
-      tech: ["React", "Three.js", "Framer Motion", "CoinGecko API"],
-      github: "#",
-      live: "#",
-      image: "https://images.unsplash.com/photo-1639762681485-074b7f4ec651?q=80&w=800&auto=format&fit=crop"
-    }
-  ],
+  projects: [],
   profiles: [
     {
       name: "GitHub",
@@ -117,7 +92,7 @@ const PortfolioContext = createContext();
 export const PortfolioProvider = ({ children }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [data, setData] = useState(() => {
-    const saved = localStorage.getItem('my_portfolio_data');
+    const saved = localStorage.getItem('my_portfolio_data_v2');
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -129,7 +104,7 @@ export const PortfolioProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    localStorage.setItem('my_portfolio_data', JSON.stringify(data));
+    localStorage.setItem('my_portfolio_data_v2', JSON.stringify(data));
   }, [data]);
 
   const updateHome = (fields) => {
@@ -180,20 +155,19 @@ export const PortfolioProvider = ({ children }) => {
     });
   };
 
-  const addProject = () => {
+  const addProject = (customProject) => {
+    const newProj = customProject || {
+      title: "My New Project",
+      description: "Short description of what I built, the problem it solves, and key features.",
+      tech: ["React", "JavaScript", "Tailwind CSS"],
+      github: "https://github.com/krishniyak-alt",
+      live: "https://my-portfolio-pearl-kappa-66.vercel.app",
+      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop"
+    };
+
     setData(prev => ({
       ...prev,
-      projects: [
-        ...prev.projects,
-        {
-          title: "New Project",
-          description: "Description of your awesome project.",
-          tech: ["React", "Tailwind CSS"],
-          github: "#",
-          live: "#",
-          image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop"
-        }
-      ]
+      projects: [...prev.projects, newProj]
     }));
   };
 
@@ -238,7 +212,7 @@ export const PortfolioProvider = ({ children }) => {
 
   const resetToDefault = () => {
     setData(initialPortfolioData);
-    localStorage.removeItem('my_portfolio_data');
+    localStorage.removeItem('my_portfolio_data_v2');
   };
 
   return (
